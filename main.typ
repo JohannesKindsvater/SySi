@@ -4,7 +4,7 @@
 
 #makework(
   course: "TINF24B2",
-  system: $P T_2 overline(T)^'$,
+  system: $P T_3 overline(T_2)^'$,
 )
 // show table of contents
 #outline()
