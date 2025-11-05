@@ -107,6 +107,8 @@ Download from [typst.app](https://typst.app/) or install via brew.
 brew install typst
 ```
 
+kindsvater leck eier
+
 ### 📄 License
 
 This template is provided as-is for educational purposes.
