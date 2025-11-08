@@ -20,14 +20,7 @@ sys = ...;
 ```]
 
 
-
-
-
-\texttt{ss(sys)} -> Befehl für ss(sys)
-
-
-
-
+\texttt{ss(sys)} -> Befehl für ss(sys) -> Sollte man irgendwie einbinden
 
 
 
