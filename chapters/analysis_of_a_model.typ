@@ -1,22 +1,25 @@
 #import "../config.typ": *
 
+#set heading(numbering: "1.")
+#set math.equation(numbering: "1.")
+
 = Analyse des Modells
 #inline-note(
   rect: caution-rect,
   fill: orange,
 )[Übertragungsfunktion anpassen]
 
-Im folgenden Abschnitt wird das System eines XXX-Glieds mit folgender Übertragungsfunktion analysiert:
+Im folgenden Abschnitt wird das System eines $P T_3 overline(T_2)^'$-Glieds mit folgender Übertragungsfunktion analysiert:
 $
-  G(s) = Y(s)/U(s) = dots
+  G(s) = Y(s)/U(s) = (s^2 - 2s + 1)/(s^3 + 3s^2 + 3s + 1)
 $ <uebertragungsfunktion>
 
 
 Bei der Eingabe der Übertragungsfunktion in Computeralgebra wird in Matlab zunächst die symbolische Variable $s$ über den Befehl `syms` eingeführt. Daraufhin kann über den selben Befehl die Übertragungsfunktion $G(s)$ definiert werden. Die Eingabe des konkreten Systems in Matlab erfolgt dann über:
 #codefigure(caption: none, reference: none)[```
 syms s G(s);
-G(s) = ...;
-sys = ...;
+G(s) = (s^2 - 2*s + 1)/(s^3 + 3*s^2 + 3*s + 1);
+sys = tf([1 -2 1], [1 3 3 1]);
 ```]
 
 
@@ -43,6 +46,36 @@ In unserem Fall ergibt sich:
   fill: orange,
 )[Einsetzen der Matrizen, welche in Matlab mit ss(sys) berechnet werden können]
 
+#let A = math.mat(
+  (-3, -1.5, -1),
+  (2, 0, 0),
+  (0, 0.5, 0)
+)
+
+#let B = math.mat(
+  (2,),
+  (0,),
+  (0,)
+)
+
+#let C = math.mat(
+  (0.5, -0.5, 0.5)
+)
+
+#let D = math.mat(
+  (0)
+)
+
+#v(8pt)
+$A = #A$ \
+#v(8pt)
+$B = #B$ \
+#v(8pt)
+$C = #C$ \
+#v(8pt)
+$D = #D$
+
+
 == Implizite Darstellung
 === Zustandsraumdarstellung <zustandsraumdarstellung>
 
@@ -55,12 +88,15 @@ $
 
 Für unser Beispiel gilt mit den *Anfangswerten*:
 
+A = #math.vec("0", "0", "0", "0", "0")
+
+
 #inline-note(
   rect: caution-rect,
   fill: orange,
-)[Einsetzen]
+)[Einsetzen / / soweit ich verstanden habe haben wir 5 anfangszustände, oder?]
 
-Die Zustandsraumdarstellung lässt sich in Matlab mit dem Befehl `ss(sys)` berechnen. Ein System kann auch mit der dazugehörigen Zustandsraumdarstellung eingegeben werden, indem die Matrizen $A$, $B$ $C$, $D$ belegt werden und der Befehl `sys = ss(A, B, C, D)` verwendet wird. Hieraus ergibt sich mit `tf(sys)` erneut die Übertragungsfunktion, welche auch mit folgender Formel manuell berechnet werden kann, wobei $I$ die Einheitsmatrix darstellt.
+Die Zustandsraumdarstellung lässt sich in Matlab mit dem Befehl `ss(sys)` berechnen. Ein System kann auch mit der dazugehörigen Zustandsraumdarstellung eingegeben werden, indem die Matrizen $A$, $B$, $C$, $D$ belegt werden und der Befehl `sys = ss(A, B, C, D)` verwendet wird. Hieraus ergibt sich mit `tf(sys)` erneut die Übertragungsfunktion, welche auch mit folgender Formel manuell berechnet werden kann, wobei $I$ die Einheitsmatrix darstellt.
 
 $
   G(s) = C(s I-A)^(-1)B+ D
@@ -75,7 +111,7 @@ Ohne Matlab kann die Zustandsraumdarstellung aus der Übertragungsfunktion in ei
 #inline-note(
   rect: caution-rect,
   fill: orange,
-)[Herrn Gröll fragen, ob dieser Abschnitt drinbleiben soll]
+)[Herrn Gröll fragen, ob dieser Abschnitt drinbleiben soll / / weisst du ob das gefragt wurde?]
 
 Die Anfangswerte werden für die Simulation benötigt, da der Start der Funktion definiert sein muss. Verwendet werden hierbei immer die linksseitigen Grenzwerte, damit eventuelle Sprünge nicht miteinbezogen werden. Das bedeutet:
 
