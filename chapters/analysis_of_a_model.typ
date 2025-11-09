@@ -22,11 +22,6 @@ G(s) = (s^2 - 2*s + 1)/(s^3 + 3*s^2 + 3*s + 1);
 sys = tf([1 -2 1], [1 3 3 1]);
 ```]
 
-
-\texttt{ss(sys)} -> Befehl für ss(sys) -> Sollte man irgendwie einbinden
-
-
-
 Wichtig dabei ist, dass bei der Eingabe einer Gleichung in Matlab die Operatoren, wie die Multiplikation, explizit in der Formel ausgeschrieben werden. So muss zum Beispiel für den Term $3·s$ das Multiplikationszeichen explizit aufgeführt werden. Bei einer Eingabe von 3s wird eine Fehlermeldung ausgegeben und die Eingabe des System schlägt fehl.
 
 Zum Aufbau der Analyse des Modells ist anzumerken, dass die Darstellungsformen absteigend anhand ihres Informationsgehalts sortiert sind, sodass die erste Darstellung die informationsreichste ist.
@@ -46,34 +41,46 @@ In unserem Fall ergibt sich:
   fill: orange,
 )[Einsetzen der Matrizen, welche in Matlab mit ss(sys) berechnet werden können]
 
-#let A = math.mat(
-  (-3, -1.5, -1),
-  (2, 0, 0),
-  (0, 0.5, 0)
-)
+// #let A = math.mat(
+//   (-3, -1.5, -1),
+//   (2, 0, 0),
+//   (0, 0.5, 0),
+// )
 
-#let B = math.mat(
-  (2,),
-  (0,),
-  (0,)
-)
+// #let B = math.mat(
+//   (2,),
+//   (0,),
+//   (0,),
+// )
 
-#let C = math.mat(
-  (0.5, -0.5, 0.5)
-)
+// #let C = math.mat(
+//   (0.5, -0.5, 0.5),
+// )
 
-#let D = math.mat(
-  (0)
-)
+// #let D = math.mat(
+//   0,
+// )
+//
 
-#v(8pt)
-$A = #A$ \
-#v(8pt)
-$B = #B$ \
-#v(8pt)
-$C = #C$ \
-#v(8pt)
-$D = #D$
+$
+  A = mat(
+    -3, -1.5, -1;
+    2, 0, 0;
+    0, 0.5, 0;
+  )
+$
+
+$
+  B = mat(
+    2;
+    0;
+    0;
+  )
+$
+
+$ C = mat(0.5, -0.5, 0.5;) $
+
+$ D = mat(0) $
 
 
 == Implizite Darstellung
@@ -88,7 +95,9 @@ $
 
 Für unser Beispiel gilt mit den *Anfangswerten*:
 
-A = #math.vec("0", "0", "0", "0", "0")
+$
+  A = mat(0; 0; 0; 0; 0;)
+$
 
 
 #inline-note(
