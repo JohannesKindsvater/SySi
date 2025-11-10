@@ -14,6 +14,21 @@ $
   G(s) = Y(s)/U(s) = (s^2 - 2s + 1)/(s^3 + 3s^2 + 3s + 1)
 $ <uebertragungsfunktion>
 
+== Eigenschaften des Systems
+
+Folgend eine Liste der Eigenschaften des Systems, die sich aus der Übertra-
+gungsfunktion G(s) ergibt: \
+
+- *Nennergrad - Zählergrad = 1*,
+  dadurch ist das System *nicht sprungfähig*, antwortet aber *sofort* mit einer *Steigung*. Außerdem ist die *D-Matrix* (welche einem *Sprung am Anfang* ensprechen würde) gleich *0*.
+
+- Besitzt *zwei Nullstellen*
+
+- Besitzt *drei Polstellen*
+
+- *Nichtminimalphasig*
+
+== Eingabe des Systems in Matlab
 
 Bei der Eingabe der Übertragungsfunktion in Computeralgebra wird in Matlab zunächst die symbolische Variable $s$ über den Befehl `syms` eingeführt. Daraufhin kann über den selben Befehl die Übertragungsfunktion $G(s)$ definiert werden. Die Eingabe des konkreten Systems in Matlab erfolgt dann über:
 #codefigure(caption: none, reference: none)[```
@@ -103,7 +118,7 @@ $
 #inline-note(
   rect: caution-rect,
   fill: orange,
-)[Einsetzen / / soweit ich verstanden habe haben wir 5 anfangszustände, oder?]
+)[Einsetzen / / Ja wir haben ja 5 Parameter, außer bei uns fallen irgendwelche weg weil die sowieso null sind (irgendwelche Grenzwerte)]
 
 Die Zustandsraumdarstellung lässt sich in Matlab mit dem Befehl `ss(sys)` berechnen. Ein System kann auch mit der dazugehörigen Zustandsraumdarstellung eingegeben werden, indem die Matrizen $A$, $B$, $C$, $D$ belegt werden und der Befehl `sys = ss(A, B, C, D)` verwendet wird. Hieraus ergibt sich mit `tf(sys)` erneut die Übertragungsfunktion, welche auch mit folgender Formel manuell berechnet werden kann, wobei $I$ die Einheitsmatrix darstellt.
 

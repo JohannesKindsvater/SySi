@@ -44,6 +44,10 @@ Im nächsten Schritt müssen die Eingangs- ($u_1$, $u_2$, $u_3$, ...), Ausgangs-
     table.cell([$m$]),
     table.cell([$x_2$]),
 
+    table.cell([$Q_12$]),
+    table.cell([$dot(V)$]),
+    table.cell([$x_3$]),
+
     table.cell([$Q_AA$]),
     table.cell([$dot(V)$]),
     table.cell([$z$]),
@@ -75,8 +79,8 @@ Aus der zeitlichen Ableitung des Volumens folgt:
   block: true,
   numbering: "(1)",
   $
-    (d V_1)/(d t) = d(A_1 dot x_1)/(d t) = A_1 dot d(x)/(d t) = A_1 dot dot(x_1) \
-    (d V_2)/(d t) = d(A_2 dot x_2)/(d t) = A_2 dot d(x)/(d t) = A_2 dot dot(x_2)
+    (d V_T_1)/(d t) = d(A_1 dot x_1)/(d t) = A_1 dot d(x)/(d t) = A_1 dot dot(x_1) \
+    (d V_T_2)/(d t) = d(A_2 dot x_2)/(d t) = A_2 dot d(x)/(d t) = A_2 dot dot(x_2)
   $,
 )
 
@@ -90,20 +94,36 @@ Gleichzeitig ist die Volumenbilanz, der Volumenstrom der durch $Q_E$ reinfließt
   block: true,
   numbering: "(1)",
   $
-    (d V_1)/(d t) = Q_E - Q_12 \
-    (d V_1)/(d t) = Q_12 - Q_A
+    (d V_T_1)/(d t) = Q_E - Q_12 \
+    (d V_T_2)/(d t) = Q_12 - Q_A
   $,
 )
 
+\
+\
 #space
+Daraus folgt:
 
 #math.equation(
   block: true,
   numbering: "(1)",
-
   $
-    (d V_1)/(d t) = Q_E - Q_12 \
-    (d V_1)/(d t) = Q_12 - Q_A
+    A_1 dot dot(x_1) = Q_E - Q_12\
+    A_2 dot dot(x_2) = Q_12 - Q_A
   $,
 )
 
+#space
+Löst man die Gleichungen nun nach $dot(x_i)$ auf, erhält man folgende DGL:
+
+#math.equation(
+  block: true,
+  numbering: "(1)",
+  $
+    dot(x_1) = 1/A_1 (Q_E - Q_12)\
+    dot(x_2) = 1/A_2(Q_12 - Q_A)
+  $,
+)
+
+Für die Übertragungsfunktion müssen die Differentialgleichungen jedoch linear sein.\
+Von nun an wird mit dem $P T_3 overline(T_2)^'$ System fortgefahren.
