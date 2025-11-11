@@ -24,7 +24,7 @@ gungsfunktion G(s) ergibt: \
 
 - Besitzt *zwei Nullstellen*
 
-- Besitzt *drei Polstellen*
+- Besitzt *dreifache Polstelle*
 
 - *Nichtminimalphasig*
 
@@ -173,6 +173,10 @@ Für unser System gilt:
 === Differentialgleichung <dgl>
 Die Differentialgleichung ergibt sich meist aus dem physikalischen Modell und ist in unserem Fall mit den *Anfangswerten* wie folgt definiert:
 
+#math.equation(
+  $$,
+)
+
 #inline-note(
   rect: caution-rect,
   fill: orange,
@@ -180,6 +184,24 @@ Die Differentialgleichung ergibt sich meist aus dem physikalischen Modell und is
 
 == Ein- und Ausgangs-Differentialgleichung
 Die Ein-Ausgangs-Differentialgleichung ergibt sich aus der Differentialgleichung (@dgl) durch Eliminieren des Zustandes und ist für unser System mit den Anfangswerten wie folgt definiert:
+
+$
+  G(s) = Y(s)/U(s) = (s^2 - 2s + 1)/(s^3 + 3s^2 + 3s + 1)
+$
+
+$
+  (s^3 + 3s^2 + 3s + 1) Y(s) = (s^2 - 2s + 1) U(s)
+$
+
+$
+  dot.triple(y) + 3 dot.double(y) + 3 dot(y) + y = dot.double(u) - 2 dot(u) + u
+$
+
+#space
+
+Hierbei gilt für die Anfangswerte:
+
+$ vec(y, dot(y), delim: "[") = vec(0, 0, delim: "[") $
 
 #inline-note(
   rect: caution-rect,
