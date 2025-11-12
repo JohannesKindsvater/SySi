@@ -218,7 +218,13 @@ Ein System kann auch durch die dazugehörige Übertragungsfunktion beschrieben w
 === Gewichtsfunktion / Impulsantwort $delta(t)$
 Die Gewichtsfunktion $g(t)$, auch Impulsantwort genannt, ist die Antwort des Systems auf einen Dirac-Impuls $delta(t)$ am Eingang.
 
-In Matlab kann die Impulsantwort mit `impulse(sys)` geplottet werden. Die analytische Berechnung ist über `g(t) = ilaplace(G(s))` möglich. Die Ausgabe `...` von Matlab bedeutet:
+In Matlab kann die Impulsantwort mit `impulse(sys)` geplottet werden. Die analytische Berechnung ist über `g(t) = ilaplace(G(s))` möglich. Die Ausgabe `exp(-t) - 4*t*exp(-t) + 2*t^2*exp(-t)` von Matlab bedeutet:
+
+//exp(-t) - 4*t*exp(-t) + 2*t^2*exp(-t)
+
+$
+  g(t) = e^(-t) - 4 t e^(-t) + 2 t^2 e^(-t)
+$
 
 #inline-note(
   rect: caution-rect,
@@ -240,7 +246,11 @@ In Matlab kann die Impulsantwort mit `impulse(sys)` geplottet werden. Die analyt
 === Übergangsfunktion / Sprungantwort $1(t)$
 Die Übergangsfunktion ist die Antwort auf den Einheitssprung $1(t)$ und somit ohne Einheiten. Die Sprungantwort dagegen ist die Antwort auf einen technischen Einheitssprung und somit mit Einheiten.
 
-Die Übergangsfunktion kann in Matlab mit `step(sys)` geplottet werden. Die analytische Berechnung erfolgt mit `h(t) = ilaplace(G(s)/s)`. Die Ausgabe `...` von Matlab bedeutet:
+Die Übergangsfunktion kann in Matlab mit `step(sys)` geplottet werden. Die analytische Berechnung erfolgt mit `h(t) = ilaplace(G(s)/s)`. Die Ausgabe `1 - 2*t^2*exp(-t) - exp(-t)` von Matlab bedeutet:
+
+$
+  h(t) = 1 - 2 t^2 e^(-t) - e^(-t)
+$
 
 #inline-note(
   rect: caution-rect,
