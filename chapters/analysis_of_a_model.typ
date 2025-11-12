@@ -49,53 +49,37 @@ $
   y(t) & = C e^(A t) dot x(0) + C integral_0^t e^A(t-tau)B u(tau) d tau + D u(t)
 $
 
+\
+\
+
 In unserem Fall ergibt sich:
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Einsetzen der Matrizen, welche in Matlab mit ss(sys) berechnet werden können]
 
-// #let A = math.mat(
-//   (-3, -1.5, -1),
-//   (2, 0, 0),
-//   (0, 0.5, 0),
-// )
+$//Hier die Matrizen einsetzen und die Formeln vereinfachen
+$
 
-// #let B = math.mat(
-//   (2,),
-//   (0,),
-//   (0,),
-// )
 
-// #let C = math.mat(
-//   (0.5, -0.5, 0.5),
-// )
 
-// #let D = math.mat(
-//   0,
-// )
-//
 
 $
-  A = mat(
-    -3, -1.5, -1;
-    2, 0, 0;
-    0, 0.5, 0;
-  )
+  A & = mat(
+        -3, -1.5, -1;
+        2, 0, 0;
+        0, 0.5, 0;
+      )
 $
 
 $
-  B = mat(
-    2;
-    0;
-    0;
-  )
+  B & = mat(
+        2;
+        0;
+        0;
+      )
 $
 
-$ C = mat(0.5, -0.5, 0.5;) $
+$ C & = mat(0.5, -0.5, 0.5;) $
 
-$ D = mat(0) $
+$ D & = mat(0) $
 
 
 == Implizite Darstellung
@@ -108,19 +92,30 @@ $
        y & = C x+ D u
 $
 
-Für unser Beispiel gilt mit den *Anfangswerten*:
+Matlab kann die Zustandsraumdarstellung durch den Befehl `ss(sys)` berechnen, die Ausgabe von Matlab für das beschriebene System beschreibt folgende
+Zustandsraumdarstellung:
+
+#space
 
 $
-  A = mat(0; 0; 0; 0; 0;)
+  dot(x) & = mat(-3, -1.5, -1; 2, 0, 0; 0, 0.5, 0; delim: "[")x + vec(2, 0, 0, delim: "[")u \
+       y & = mat(0.5, -0.5, 0.5, delim: "[")x + vec(0, delim: "[")u
 $
+// $
+//   y = mat(0.5, -0.5, 0.5, delim: "[")x + vec(0, delim: "[")u
+// $
+
+#space
+
+// Für unser Beispiel gilt mit den *Anfangswerten*:
+
+// $
+//   A = mat(0; 0; 0; 0; 0;)
+// $
 
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Einsetzen / / Ja wir haben ja 5 Parameter, außer bei uns fallen irgendwelche weg weil die sowieso null sind (irgendwelche Grenzwerte)]
 
-Die Zustandsraumdarstellung lässt sich in Matlab mit dem Befehl `ss(sys)` berechnen. Ein System kann auch mit der dazugehörigen Zustandsraumdarstellung eingegeben werden, indem die Matrizen $A$, $B$, $C$, $D$ belegt werden und der Befehl `sys = ss(A, B, C, D)` verwendet wird. Hieraus ergibt sich mit `tf(sys)` erneut die Übertragungsfunktion, welche auch mit folgender Formel manuell berechnet werden kann, wobei $I$ die Einheitsmatrix darstellt.
+Ein System kann auch mit der dazugehörigen Zustandsraumdarstellung eingegeben werden, indem die Matrizen $A$, $B$, $C$, $D$ belegt werden und der Befehl `sys = ss(A, B, C, D)` verwendet wird. Hieraus ergibt sich mit `tf(sys)` erneut die Übertragungsfunktion, welche auch mit folgender Formel manuell berechnet werden kann, wobei $I$ die Einheitsmatrix darstellt.
 
 $
   G(s) = C(s I-A)^(-1)B+ D
