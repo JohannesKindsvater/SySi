@@ -130,7 +130,7 @@ Ohne Matlab kann die Zustandsraumdarstellung aus der Übertragungsfunktion in ei
 #inline-note(
   rect: caution-rect,
   fill: orange,
-)[Herrn Gröll fragen, ob dieser Abschnitt drinbleiben soll / / weisst du ob das gefragt wurde?]
+)[Herrn Gröll fragen, ob dieser Abschnitt drinbleiben soll]
 
 Die Anfangswerte werden für die Simulation benötigt, da der Start der Funktion definiert sein muss. Verwendet werden hierbei immer die linksseitigen Grenzwerte, damit eventuelle Sprünge nicht miteinbezogen werden. Das bedeutet:
 
@@ -196,7 +196,9 @@ $
 
 Hierbei gilt für die Anfangswerte:
 
-$ vec(y, dot(y), delim: "[") = vec(0, 0, delim: "[") $
+$
+  vec(y, dot(y), dot.double(y), delim: "[") = vec(0, 0, 0, delim: "[")
+$
 
 #inline-note(
   rect: caution-rect,
@@ -231,7 +233,7 @@ In Matlab kann die Impulsantwort mit `impulse(sys)` geplottet werden. Die analyt
   fill: orange,
 )[`impulse(sys)` Plot einfügen]
 #figure(
-  image("../images/Impulsantwort.svg", width: 70%),
+  image("../images/ImpulseResponse12.png", width: 80%),
   caption: [Impulsantwort des Systems],
 )
 
