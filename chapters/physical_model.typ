@@ -16,7 +16,10 @@
   fill: orange,
 )[Übertragen der physikalischen Betrachtung in die Systemtheorie. Am Ende sollte die Übertragungsfunktion $G(s)$ bekannt sein.]
 \
-[Bild]
+#figure(
+  image("../images/2-Tank-System-beschriftet.png", width: 100%),
+  caption: [Zwei-Tank-System],
+)
 
 Die oben aufgeführte Skizzierung stellt ein $P T_2$ System dar, welches auf zwei $P T_1$ Gliedern, repräsentiert durch die beiden Tänke, dargestellt wird.
 
@@ -114,16 +117,46 @@ Daraus folgt:
 )
 
 #space
-Löst man die Gleichungen nun nach $dot(x_i)$ auf, erhält man folgende DGL:
+
+Für die Modellierung der Abflüsse wird das Gesetz von Torricelli herangezogen. Dieses beschreibt den Ausfluss einer Flüssigkeit aus einem offenen Behälter unter dem Einfluss der Schwerkraft. Da Tank 1 über ein Rohr am Boden verfügt, durch welches das Wasser frei in Tank 2 fällt, und Tank 2 ebenfalls einen freien Ausfluss besitzt, hängen die Volumenströme nichtlinear von der jeweiligen Füllstandshöhe $x$ ab.
+
+#space
+
+Die allgemeinen Abflüsse $Q_12$ und $Q_A$ lassen sich somit ersetzen durch:
+
+#space
 
 #math.equation(
   block: true,
   numbering: "(1)",
   $
-    dot(x_1) = 1/A_1 (Q_E - Q_12)\
-    dot(x_2) = 1/A_2(Q_12 - Q_A)
+    Q_12 = k dot sqrt(x_1)\
+    Q_A = k dot sqrt(x_2)
   $,
 )
 
-Für die Übertragungsfunktion müssen die Differentialgleichungen jedoch linear sein.\
+#space
+Der Parameter $k$ ist dabei die Ventilkonstante. Er fasst die Geometrie des Ausflussrohrs, die Erdbeschleunigung $g$ sowie den hydraulischen Widerstand zusammen. Setzt man diese Beziehungen in die Volumenbilanzgleichungen ein, erhält man das physikalische Modell in Form eines nichtlinearen Differentialgleichungssystems:
+
+#space
+
+#math.equation(
+  block: true,
+  numbering: "(1)",
+  $
+    dot(x_1) = 1/A_1 (Q_A - k_1 dot sqrt(x_1))\
+    dot(x_2) = 1/A_2(k_1 dot sqrt(x_1) - k_2 dot sqrt(x_2))
+  $,
+)
+
+#space
+
+Da dieses System aufgrund der Wurzelfunktion nichtlinear ist, ist für die weitere systemtheoretische Betrachtung eine Linearisierung um den Arbeitspunkt erforderlich.
+\
+\
 Von nun an wird mit dem $P T_3 overline(T_2)^'$ System fortgefahren.
+
+\
+\
+
+-> Linearisieren mit Ruhelagen (um Arbeitspunkt)

@@ -19,6 +19,8 @@ $ <uebertragungsfunktion>
 Folgend eine Liste der Eigenschaften des Systems, die sich aus der Übertra-
 gungsfunktion G(s) ergibt: \
 
+--> Hier noch bisschen weiter erläutern wo die Polstellen und Nullstellen liegen
+
 - *Nennergrad - Zählergrad = 1*,
   dadurch ist das System *nicht sprungfähig*, antwortet aber *sofort* mit einer *Steigung*. Außerdem ist die *D-Matrix* (welche einem *Sprung am Anfang* ensprechen würde) gleich *0*.
 
@@ -43,6 +45,24 @@ Zum Aufbau der Analyse des Modells ist anzumerken, dass die Darstellungsformen a
 
 == Explizite Darstellung des Übertragungsoperators
 Die explizite Darstellung ist in unserem Beispiel eine Folgerung aus der Zustandsraumdarstellung. Für die Berechnung von $A$, $B$, $C$, $D$ sei auf @zustandsraumdarstellung verwiesen. Zudem ist zu beachten, dass in Matlab die `expm` für die Exponentialfunktion verwendet werden muss, da die Matrixmultiplikation und nicht die Hadamardmultiplikation benötigt wird. Somit ist die Zustandsraumdarstellung mit den dazugehörigen Anfangswerten bekannt, womit die explizite Darstellung nach folgender Formel berechnet werden kann:
+
+\
+lsim (lineare Simulation) -> Matlab
+-> Gibt nicht parametrische Darstellung
+
+-> Übergangsfunktion, einmal parametrisch und einmal nicht parametrisch
+
+\
+
+-> Gewichtsfunktion, parametrisch nicht parametrisch
+
+\
+
+-> Frequenzgang -> Zwei Darstellungsnotationen -> BodePlot, Nyquist-Plot
+
+-> Mit Frequenzgang kann man stationäre ... aus dem Bode Diagramm ablesen -> Nur für konstante Signale, sin, cos (nicht für beliebige Signale)
+
+\
 
 $
   x(t) & = e^(A t) dot x(0) + integral_0^t e^A(t-tau)B u(tau) d tau \
@@ -196,6 +216,7 @@ $
 
 Hierbei gilt für die Anfangswerte:
 
+--> Anfanfgswerte sollten ungleich 0 sein
 $
   vec(y, dot(y), dot.double(y), delim: "[") = vec(0, 0, 0, delim: "[")
 $
