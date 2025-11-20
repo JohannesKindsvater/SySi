@@ -72,34 +72,19 @@ $
 \
 \
 
-In unserem Fall ergibt sich:
+Die explizite Darstellung wurde in MATLAB mithilfe der Symbolic Math Toolbox berechnet. Durch symbolische Integration der Zustandsgleichung *$dot(x) = A x + B u$* unter Verwendung des Matrixexponentials `expm` ergibt sich für einen Einheitssprung $u(t)=1$ folgende Zeitfunktion:
 
+#space
 
-$//Hier die Matrizen einsetzen und die Formeln vereinfachen
+#align(
+  `2
+    y(t) = 1 - 2 t  exp(-t) - exp(-t)`,
+  center,
+)
+\
 $
-
-
-
-
+  y(t) = 1 - 2t^2e^(-t)-e^(-t)
 $
-  A & = mat(
-        -3, -1.5, -1;
-        2, 0, 0;
-        0, 0.5, 0;
-      )
-$
-
-$
-  B & = mat(
-        2;
-        0;
-        0;
-      )
-$
-
-$ C & = mat(0.5, -0.5, 0.5;) $
-
-$ D & = mat(0) $
 
 
 == Implizite Darstellung
@@ -247,20 +232,8 @@ $
   g(t) = e^(-t) - 4 t e^(-t) + 2 t^2 e^(-t)
 $
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Hier einmal die Ausgabe von Matlab schön in
-  #[
-    #set text(font: "libertinus serif")
-    typst
-  ] formattiert hinschreiben]
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[`impulse(sys)` Plot einfügen]
 #figure(
-  image("../images/ImpulseResponse12.png", width: 80%),
+  image("../images/ImpulseResponse12.png", width: 94%),
   caption: [Impulsantwort des Systems],
 )
 
@@ -273,21 +246,9 @@ $
   h(t) = 1 - 2 t^2 e^(-t) - e^(-t)
 $
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Hier einmal die Ausgabe von Matlab schön in
-  #[
-    #set text(font: "libertinus serif")
-    typst
-  ] formattiert hinschreiben]
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[`steps(sys)` Plot einfügen]
 
 #figure(
-  image("../images/Sprungantwort.svg", width: 70%),
+  image("../images/Sprungantwort.svg", width: 95%),
   caption: [Sprungantwort],
 )
 
@@ -300,26 +261,17 @@ Mithilfe des Cursors kann in Matlab an der Kurve des Frequenzgangs $G(j omega)$,
 === Bode-Diagramm
 Im Bode-Diagramm ist der Betrag des Frequenzgangs über $omega$ in Dezibel sowie die Phasenverschiebung des Frequenzgangs über $omega$ in Grad dargestellt. Genau genommen sind dies die Amplitudenverstärkung und Phasenverschiebung, die ein Sinus an der jeweiligen Frequenz $omega$ stationär erfährt, d.h. die Eigenvorgänge sind abgeklungen $(t -> infinity)$. Um eine bessere Darstellung der Kurven zu erzeugen, wird beim Bode-Diagramm eine doppelt logarithmische Darstellung verwendet. Die Diagramm-Achse, auf der $omega$ aufgetragen ist, ist dabei logarithmisch skaliert, während der Betrag in Dezibel (dB) angegeben wird. In Matlab kann der Plot mit dem Befehl `bode(sys)` erstellt werden.
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[`bode(sys)` Plot einfügen]
 
 #figure(
-  image("../images/Bode.svg", width: 70%),
+  image("../images/Bode.svg", width: 95%),
   caption: [Bode-Plot],
 )
 
 === Nyquist-Plot / Ortskurve
 Im Nyquist-Plot wird der über $omega$ parametrisierte Frequenzgang $G(j omega)$ als Kurve in der komplexen Ebene mit Real- und Imaginärteil dargesetllt. Die Kurve des Frequenzgangs $G(j omega)$ wird in Matlab für $omega$ von $- infinity$ bis $+ infinity$ angezeigt. Der Nyquist Plot kann mithilfe des `nyquist(sys)` Befehls in Matlab erstellt werden.
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[`nyquist(sys)` Plot einfügen]
-
 #figure(
-  image("../images/Nyquist.svg", width: 70%),
+  image("../images/Nyquist.svg", width: 95%),
   caption: [Nyquist-Plot],
 )
 
@@ -431,11 +383,6 @@ $
 Da der Pol-Nullstellen-Plot keine Information über die statische Verstärkung $K$ enthält, ist er weniger aussagekräftig. Er kann mit dem `pzplot(sys)` Befehl in Matlab erstellt werden.
 
 Die Pole der Übertragungsfunktion $G(s)$ korrespondieren mit den Eigenwerten der Systemmatrix $A$ unter der Voraussetzung, dass das System vollständig steuerbar und beobachtbar ist. Das heißt, es darf keine Pol-Nullstellen-Kürzung auftreten. An dem Plot ist erkennbar, dass das System einen Pol bei 0 hat und somit instabil ist.
-
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[`pzplot(sys)` Plot einfügen]
 
 #figure(
   image("../images/Pol_Nullstellen_Diagramm.svg", width: 70%),
