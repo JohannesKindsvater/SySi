@@ -118,7 +118,7 @@ Daraus folgt:
 
 #space
 
-Für die Modellierung der Abflüsse wird das Gesetz von Torricelli herangezogen. Dieses beschreibt den Ausfluss einer Flüssigkeit aus einem offenen Behälter unter dem Einfluss der Schwerkraft. Da Tank 1 über ein Rohr am Boden verfügt, durch welches das Wasser frei in Tank 2 fällt, und Tank 2 ebenfalls einen freien Ausfluss besitzt, hängen die Volumenströme nichtlinear von der jeweiligen Füllstandshöhe $x$ ab.
+Für die Modellierung der Abflüsse wird das *Gesetz von Torricelli* herangezogen. Dieses beschreibt den Ausfluss einer Flüssigkeit aus einem offenen Behälter unter dem Einfluss der Schwerkraft. Da Tank 1 über ein Rohr am Boden verfügt, durch welches das Wasser frei in Tank 2 fällt, und Tank 2 ebenfalls einen freien Ausfluss besitzt, hängen die Volumenströme nichtlinear von der jeweiligen Füllstandshöhe $x$ ab.
 
 #space
 
@@ -136,7 +136,7 @@ Die allgemeinen Abflüsse $Q_12$ und $Q_A$ lassen sich somit ersetzen durch:
 )
 
 #space
-Der Parameter $k$ ist dabei die Ventilkonstante. Er fasst die Geometrie des Ausflussrohrs, die Erdbeschleunigung $g$ sowie den hydraulischen Widerstand zusammen. Setzt man diese Beziehungen in die Volumenbilanzgleichungen ein, erhält man das physikalische Modell in Form eines nichtlinearen Differentialgleichungssystems:
+Der Parameter *$k$* ist dabei die *Ventilkonstante*. Er fasst die Geometrie des Ausflussrohrs, die Erdbeschleunigung $g$ sowie den *hydraulischen Widerstand* zusammen. Setzt man diese Beziehungen in die Volumenbilanzgleichungen ein, erhält man das physikalische Modell in Form eines nichtlinearen Differentialgleichungssystems:
 
 #space
 
