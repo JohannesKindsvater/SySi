@@ -165,6 +165,10 @@ $
 
 Für unser System gilt:
 
+$
+  x(t) = x(0) + integral^t_0 mat(-3, -1.5, -1; 2, 0, 0; 0, 0.5, 0) x(tau) + vec(2, 0, 0) u(tau) d tau
+$
+
 #inline-note(
   rect: caution-rect,
   fill: orange,
@@ -180,7 +184,7 @@ Die Differentialgleichung ergibt sich meist aus dem physikalischen Modell und is
 #inline-note(
   rect: caution-rect,
   fill: orange,
-)[TODO]
+)[TODO / / schauen ob wir das behalten weil wir kein physikalisches system haben]
 
 == Ein- und Ausgangs-Differentialgleichung
 Die Ein-Ausgangs-Differentialgleichung ergibt sich aus der Differentialgleichung (@dgl) durch Eliminieren des Zustandes und ist für unser System mit den Anfangswerten wie folgt definiert:
@@ -203,7 +207,7 @@ Hierbei gilt für die Anfangswerte:
 
 --> Anfanfgswerte sollten ungleich 0 sein
 $
-  vec(y, dot(y), dot.double(y), delim: "[") = vec(0, 0, 0, delim: "[")
+  vec(y(0), dot(y)(0), dot.double(y)(0), delim: "[") = vec(1, 0, 0, delim: "[")
 $
 
 #inline-note(
