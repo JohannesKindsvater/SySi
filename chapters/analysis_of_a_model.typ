@@ -48,17 +48,17 @@ Die explizite Darstellung ist in unserem Beispiel eine Folgerung aus der Zustand
 
 \
 lsim (lineare Simulation) -> Matlab
--> Gibt nicht parametrische Darstellung
+-> Gibt nicht parametrische Darstellung, schon erfüllt über systemantwort
 
--> Übergangsfunktion, einmal parametrisch und einmal nicht parametrisch
-
-\
-
--> Gewichtsfunktion, parametrisch nicht parametrisch
+-> Übergangsfunktion, einmal parametrisch und einmal (nicht parametrisch erfüllt)
 
 \
 
--> Frequenzgang -> Zwei Darstellungsnotationen -> BodePlot, Nyquist-Plot
+-> Gewichtsfunktion, parametrisch (nicht parametrisch erfüllt)
+
+\
+
+-> Frequenzgang -> Zwei Darstellungsnotationen -> BodePlot, Nyquist-Plot (bei systemantworten)
 
 -> Mit Frequenzgang kann man stationäre ... aus dem Bode Diagramm ablesen -> Nur für konstante Signale, sin, cos (nicht für beliebige Signale)
 
@@ -77,7 +77,7 @@ Die explizite Darstellung wurde in MATLAB mithilfe der Symbolic Math Toolbox ber
 #space
 
 #align(
-  `2
+  `2 / / was soll die 2 hier?
     y(t) = 1 - 2 t  exp(-t) - exp(-t)`,
   center,
 )
@@ -163,10 +163,12 @@ $
   x(t) = x(0) + integral^t_0 A x(tau) + B u(tau) d tau
 $
 
+ich habe im keks beispiel gesehen dass dort auch noch y(t) mit aufgeführt war, aber hier nicht. soll das so sein?
+
 Für unser System gilt:
 
 $
-  x(t) = x(0) + integral^t_0 mat(-3, -1.5, -1; 2, 0, 0; 0, 0.5, 0) x(tau) + vec(2, 0, 0) u(tau) d tau
+  x(t) = x(0) + integral^t_0 mat(-3, -1.5, -1; 2, 0, 0; 0, 0.5, 0; delim: "[") x(tau) + vec(2, 0, 0, delim: "[") u(tau) d tau
 $
 
 #inline-note(
@@ -177,9 +179,24 @@ $
 === Differentialgleichung <dgl>
 Die Differentialgleichung ergibt sich meist aus dem physikalischen Modell und ist in unserem Fall mit den *Anfangswerten* wie folgt definiert:
 
-#math.equation(
-  $$,
-)
+\
+
+
+$
+  G(s) = Y(s)/U(s) = (s^2 - 2s + 1)/(s^3 + 3s^2 + 3s + 1)
+$
+
+$
+  (s^3 + 3s^2 + 3s + 1) dot Y(s) = (s^2 - 2s + 1) dot U(s)
+$
+
+$
+  (s^3 + 3s^2 + 3s + 1) dot Y(s) = (s^2 - 2s + 1) dot U(s)
+$
+
+hier steht im endeffekt das selbe wie direkt im chapter darunter, wir können das hier also entweder streichen oder das darunterrichtig?
+
+\
 
 #inline-note(
   rect: caution-rect,
@@ -270,6 +287,37 @@ Im Bode-Diagramm ist der Betrag des Frequenzgangs über $omega$ in Dezibel sowie
   image("../images/Bode.svg", width: 95%),
   caption: [Bode-Plot],
 )
+
+Abbildung X zeigt den Bode-Plot unseres Systems. Aus dem Verlauf des Betragsgangs lässt sich das grundlegende Übertragungsverhalten des Systems ablesen. Ein System mit P-Anteil besitzt zu Beginn des Bode-Plots (kleine Frequenzen) eine praktisch waagerechte Gerade, da die Verstärkung bei tiefen Frequenzen konstant ist. Ein I-Anteil würde sich hingegen durch eine Gerade mit negativer Steigung (−20 dB/Dekade) bemerkbar machen, während ein D-Anteil einen Anstieg mit +20 dB/Dekade verursacht.
+
+Im vorliegenden Bode-Diagramm beginnt der Betragsgang mit einer annähernd horizontalen Geraden, was eindeutig auf ein P-Verhalten des Systems hinweist.
+
+Zusätzlich können aus dem Anfang des Bode-Plots statische Systeminformationen gewonnen werden. Entscheidend ist dabei der Wert des Betragsgangs bei sehr kleinen Frequenzen. Da die Frequenzachse logarithmisch skaliert ist und somit keine exakte Nullfrequenz erreichbar ist, betrachtet man üblicherweise den kleinsten geplotteten Wert. In unserem Bode-Plot liegt dieser bei etwa
+
+$
+  omega = 10^-2 (r a d)/s
+$
+
+Dort lesen wir einen Betrag von ca.
+
+$
+  D approx 0 d B
+$
+
+Um daraus die statische Verstärkung K des Systems zu bestimmen, verwendet man die Beziehung zwischen Verstärkung und Dezibel-Darstellung:
+
+$
+  20 log_10(K) = D
+
+  K = 10^(D/20) = 10^(0/20) = 1
+$
+
+Somit besitzt unser System eine statische Verstärkung von $K = 1 $.
+
+\
+
+Dies stimmt mit der zuvor bestimmten Übertragungsfunktion überein und bestätigt das P-artige Übertragungsverhalten des Systems.
+
 
 === Nyquist-Plot / Ortskurve
 Im Nyquist-Plot wird der über $omega$ parametrisierte Frequenzgang $G(j omega)$ als Kurve in der komplexen Ebene mit Real- und Imaginärteil dargesetllt. Die Kurve des Frequenzgangs $G(j omega)$ wird in Matlab für $omega$ von $- infinity$ bis $+ infinity$ angezeigt. Der Nyquist Plot kann mithilfe des `nyquist(sys)` Befehls in Matlab erstellt werden.
