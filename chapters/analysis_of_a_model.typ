@@ -47,18 +47,6 @@ Zum Aufbau der Analyse des Modells ist anzumerken, dass die Darstellungsformen a
 Die explizite Darstellung ist in unserem Beispiel eine Folgerung aus der Zustandsraumdarstellung. Für die Berechnung von $A$, $B$, $C$, $D$ sei auf @zustandsraumdarstellung verwiesen. Zudem ist zu beachten, dass in Matlab die `expm` für die Exponentialfunktion verwendet werden muss, da die Matrixmultiplikation und nicht die Hadamardmultiplikation benötigt wird. Somit ist die Zustandsraumdarstellung mit den dazugehörigen Anfangswerten bekannt, womit die explizite Darstellung nach folgender Formel berechnet werden kann:
 
 \
-lsim (lineare Simulation) -> Matlab
--> Gibt nicht parametrische Darstellung, schon erfüllt über systemantwort
-
--> Übergangsfunktion, einmal parametrisch und einmal (nicht parametrisch erfüllt)
-
-\
-
--> Gewichtsfunktion, parametrisch (nicht parametrisch erfüllt)
-
-\
-
--> Frequenzgang -> Zwei Darstellungsnotationen -> BodePlot, Nyquist-Plot (bei systemantworten)
 
 -> Mit Frequenzgang kann man stationäre ... aus dem Bode Diagramm ablesen -> Nur für konstante Signale, sin, cos (nicht für beliebige Signale)
 
@@ -77,7 +65,7 @@ Die explizite Darstellung wurde in MATLAB mithilfe der Symbolic Math Toolbox ber
 #space
 
 #align(
-  `2 / / was soll die 2 hier?
+  `2
     y(t) = 1 - 2 t  exp(-t) - exp(-t)`,
   center,
 )
@@ -236,10 +224,12 @@ $
 
 Ein System kann auch durch die dazugehörige Übertragungsfunktion beschrieben werden, welche sich aus der Ein- und Ausgangsdifferentialgleichung mithilfe der Laplace Transformation ergibt. Die Übertragungsfunktion wurde durch die physikalische Betrachung hergeleitet und zu Beginn (@uebertragungsfunktion) benannt. Sie lautet:
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[TODO]
+\
+
+$
+  G(s) = (s^2 - 2s + 1)/(s^3 + 3s^2 + 3s + 1)
+$
+
 
 == Systemantworten
 === Gewichtsfunktion / Impulsantwort $delta(t)$
@@ -288,15 +278,17 @@ Im Bode-Diagramm ist der Betrag des Frequenzgangs über $omega$ in Dezibel sowie
   caption: [Bode-Plot],
 )
 
-Abbildung X zeigt den Bode-Plot unseres Systems. Aus dem Verlauf des Betragsgangs lässt sich das grundlegende Übertragungsverhalten des Systems ablesen. Ein System mit P-Anteil besitzt zu Beginn des Bode-Plots (kleine Frequenzen) eine praktisch waagerechte Gerade, da die Verstärkung bei tiefen Frequenzen konstant ist. Ein I-Anteil würde sich hingegen durch eine Gerade mit negativer Steigung (−20 dB/Dekade) bemerkbar machen, während ein D-Anteil einen Anstieg mit +20 dB/Dekade verursacht.
+Abbildung 4 zeigt den Bode-Plot unseres Systems. Aus dem Verlauf des Betragsgangs lässt sich das grundlegende Übertragungsverhalten des Systems ablesen. Ein System mit P-Anteil besitzt zu Beginn des Bode-Plots (kleine Frequenzen) eine praktisch waagerechte Gerade, da die Verstärkung bei tiefen Frequenzen konstant ist. Ein I-Anteil würde sich hingegen durch eine Gerade mit negativer Steigung (−20 dB/Dekade) bemerkbar machen, während ein D-Anteil einen Anstieg mit +20 dB/Dekade verursacht.
 
 Im vorliegenden Bode-Diagramm beginnt der Betragsgang mit einer annähernd horizontalen Geraden, was eindeutig auf ein P-Verhalten des Systems hinweist.
 
 Zusätzlich können aus dem Anfang des Bode-Plots statische Systeminformationen gewonnen werden. Entscheidend ist dabei der Wert des Betragsgangs bei sehr kleinen Frequenzen. Da die Frequenzachse logarithmisch skaliert ist und somit keine exakte Nullfrequenz erreichbar ist, betrachtet man üblicherweise den kleinsten geplotteten Wert. In unserem Bode-Plot liegt dieser bei etwa
 
 $
-  omega = 10^-2 (r a d)/s
+  omega = 10^(-1) (r a d)/s
 $
+
+NOCHMAL ANSCHAUEN
 
 Dort lesen wir einen Betrag von ca.
 
