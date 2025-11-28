@@ -278,38 +278,6 @@ Im Bode-Diagramm ist der Betrag des Frequenzgangs über $omega$ in Dezibel sowie
   caption: [Bode-Plot],
 )
 
-Abbildung 4 zeigt den Bode-Plot unseres Systems. Aus dem Verlauf des Betragsgangs lässt sich das grundlegende Übertragungsverhalten des Systems ablesen. Ein System mit P-Anteil besitzt zu Beginn des Bode-Plots (kleine Frequenzen) eine praktisch waagerechte Gerade, da die Verstärkung bei tiefen Frequenzen konstant ist. Ein I-Anteil würde sich hingegen durch eine Gerade mit negativer Steigung (−20 dB/Dekade) bemerkbar machen, während ein D-Anteil einen Anstieg mit +20 dB/Dekade verursacht.
-
-Im vorliegenden Bode-Diagramm beginnt der Betragsgang mit einer annähernd horizontalen Geraden, was eindeutig auf ein P-Verhalten des Systems hinweist.
-
-Zusätzlich können aus dem Anfang des Bode-Plots statische Systeminformationen gewonnen werden. Entscheidend ist dabei der Wert des Betragsgangs bei sehr kleinen Frequenzen. Da die Frequenzachse logarithmisch skaliert ist und somit keine exakte Nullfrequenz erreichbar ist, betrachtet man üblicherweise den kleinsten geplotteten Wert. In unserem Bode-Plot liegt dieser bei etwa
-
-$
-  omega = 10^(-1) (r a d)/s
-$
-
-NOCHMAL ANSCHAUEN
-
-Dort lesen wir einen Betrag von ca.
-
-$
-  D approx 0 d B
-$
-
-Um daraus die statische Verstärkung K des Systems zu bestimmen, verwendet man die Beziehung zwischen Verstärkung und Dezibel-Darstellung:
-
-$
-  20 log_10(K) = D
-
-  K = 10^(D/20) = 10^(0/20) = 1
-$
-
-Somit besitzt unser System eine statische Verstärkung von $K = 1 $.
-
-\
-
-Dies stimmt mit der zuvor bestimmten Übertragungsfunktion überein und bestätigt das P-artige Übertragungsverhalten des Systems.
-
 
 === Nyquist-Plot / Ortskurve
 Im Nyquist-Plot wird der über $omega$ parametrisierte Frequenzgang $G(j omega)$ als Kurve in der komplexen Ebene mit Real- und Imaginärteil dargesetllt. Die Kurve des Frequenzgangs $G(j omega)$ wird in Matlab für $omega$ von $- infinity$ bis $+ infinity$ angezeigt. Der Nyquist Plot kann mithilfe des `nyquist(sys)` Befehls in Matlab erstellt werden.
@@ -346,7 +314,7 @@ Alternativ zur Eingabe der Übergangsfunktion lässt sich das System auch durch 
 )[Eigene Schaltung einfügen]
 
 #figure(
-  image("../images/Simulink_integrator.png", width: 80%),
+  image("../images/Simulink_integrator1.png", width: 80%),
   caption: [Simulink Schaltung mit Integratoren],
 )
 
@@ -396,6 +364,74 @@ Exemplarisch soll hierbei die Phasenverschiebung und Amplitudenverstärkung aus 
   - Screenshot, auf dem im oberen und unteren Plot jeweils die Frequenz $omega$ durch Anklicken hervorgehoben ist.
   - Verstärkung [dB] aus Bode-Plot ablesen und mit $20 log(K) =...$ in Frequenz [Hz] umrechnen.
   - Phasenverschiebung [$(r a d)/s$ ] aus Diagramm ablesen und in Grad umrechnen.
+  
+SCREENSHOTS EINFUEGEN WIE WIR ZEIGEN WO WIR ABLESEN
+
+Aus dem Verlauf des Betragsgangs des Bode-Plots lässt sich das grundlegende Übertragungsverhalten des Systems ablesen. Ein System mit P-Anteil besitzt zu Beginn des Bode-Plots (kleine Frequenzen) eine praktisch waagerechte Gerade, da die Verstärkung bei tiefen Frequenzen konstant ist. Ein I-Anteil würde sich hingegen durch eine Gerade mit negativer Steigung (−20 dB/Dekade) bemerkbar machen, während ein D-Anteil einen Anstieg mit +20 dB/Dekade verursacht.
+
+Im vorliegenden Bode-Diagramm beginnt der Betragsgang mit einer annähernd horizontalen Geraden, was eindeutig auf ein P-Verhalten des Systems hinweist.
+
+Zusätzlich können aus dem Anfang des Bode-Plots statische Systeminformationen gewonnen werden. Entscheidend ist dabei der Wert des Betragsgangs bei sehr kleinen Frequenzen. Da die Frequenzachse logarithmisch skaliert ist und somit keine exakte Nullfrequenz erreichbar ist, betrachtet man üblicherweise den kleinsten geplotteten Wert. In unserem Bode-Plot liegt dieser bei etwa
+
+$
+  omega = 10^(-1) (r a d)/s
+$
+
+Dort lesen wir einen Betrag von ca.
+
+$
+  D approx 0 d B
+$
+
+Um daraus die statische Verstärkung K des Systems zu bestimmen, verwendet man die Beziehung zwischen Verstärkung und Dezibel-Darstellung:
+
+$
+  20 log_10(K) = D
+
+  K = 10^(D/20) = 10^(0/20) = 1
+$
+
+Somit besitzt unser System eine statische Verstärkung von $K = 1 $.
+
+\
+
+Dies stimmt mit der zuvor bestimmten Übertragungsfunktion überein und bestätigt das P-artige Übertragungsverhalten des Systems.
+
+\
+\
+
+Neben dem Betragsgang lässt sich im unteren Teil des Bode-Diagramms auch die
+Phasenverschiebung des Systems ablesen. Für die gleiche Frequenz wie oben
+(bzw. für den kleinsten geplotteten Wert)
+
+$
+  omega = 10^(-1) (r a d)/s
+$
+
+finden wir im Phasengang einen Wert von ungefähr
+
+$
+  phi approx 330 degree
+$
+
+Da Phasenwerte periodisch sind, kann dies auch als
+
+$
+  phi approx -30 degree
+$
+
+interpretiert werden. Eine negative Phasenverschiebung bedeutet, dass das
+Ausgangssignal dem Eingangssignal zeitlich hinterherläuft, während positive
+Werte auf ein voreilendes Verhalten hinweisen.
+
+Die gemessene Phase zeigt, dass unser System bei niedrigen Frequenzen nur
+eine sehr geringe zeitliche Verschiebung besitzt. Dies passt zum bereits
+identifizierten P-Verhalten, da Systeme mit rein proportionalem Anteil
+typischerweise kaum Phasenverzögerung aufweisen.
+
+Für die Dokumentation sollten an dieser Stelle zwei Screenshots eingefügt
+werden: ein Screenshot des Amplitudengangs mit markiertem Punkt sowie ein
+Screenshot des Phasengangs an der gleichen Frequenz.
 + Ablesen aus Simulink Oszilloskop
   - Screenshot des Oszilloskops, der die Amplitude zeigt.
   - Screenshot des Oszilloskops, der die Phasenverschiebung zeigt.
