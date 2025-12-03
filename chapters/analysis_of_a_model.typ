@@ -323,17 +323,12 @@ Alternativ zur Eingabe der Übergangsfunktion lässt sich das System auch durch 
   fill: orange,
 )[Eigene Ausgabe einsetzen]
 
-#figure(
-  image("../images/Simulink_Oszillator_3Hz.png", width: 80%),
-  caption: [Oszilloskop für Frequenz von $3 (r a d)/s$],
-)
-
 #[
   #set heading(numbering: none, outlined: false)
   === Stationärer Vorgang
 ]
 
-Der stationäre Vorgang ist diejenige Phasenverschiebung und Amplitudenverstärkung, welcher ein Sinus am Eingang mit einer konstanten Frequenz stationär erfährt. Für den Sinus $u(t) = a dot sin(omega_0 t+ phi_0)$ am Eingang ergibt sich der stationäre Vorgang $y_("stat")$ wie nach folgender Formel mit den Bestandteilen:
+Der stationäre Vorgang beschreibt diejenige Phasenverschiebung und Amplitudenverstärkung, welche ein Sinussignal am Eingang mit einer konstanten Frequenz im eingeschwungenen Zustand erfährt. Für ein Eingangssignal $u(t) = a dot sin(omega_0 t+ phi_0)$ ergibt sich der stationäre Ausgang $y_("stat")$ gemäß folgender Beziehung:
 
 $
            y(t) & = "Eigenvorgang" + y_("stat")(t) \
@@ -350,93 +345,120 @@ $
   $
 ]
 
-Exemplarisch soll hierbei die Phasenverschiebung und Amplitudenverstärkung aus dem Oszilloskop und dem Bode-Plot abgelesen werden, sowie zusätzlich manuell berechnet werden. Für den Vergleich wird eine Frequenz von $omega = dots (r a d)/s$ betrachtet.
+Im Folgenden werden diese Größen exemplarisch für eine Kreisfrequenz von $omega = 10^(-1) (r a d)/s$ ermittelt. Dies erfolgt durch drei Methoden: analytische Berechnung, Ablesen aus dem Bode-Diagramm und Messung im Zeitbereich (Oszilloskop).
 
 #inline-note(
   rect: caution-rect,
   fill: orange,
 )[In dem folgenden Abschnitt muss die Phasenverschiebung und Amplitudenverstärkung zuerst analytisch berechnet und anschließend aus dem Bode-Plot und Oszilloskop abgelesen werden. Unten befindet sich eine kurze Zusammenfassung der Vorgehensweise.]
 
-+ Analytische Berechnung
-  - $omega j$ in $G(s)$ einsetzen und Betrag und Argument bestimmen.
-  - Für die Berechnung des Argumentes in Matlab `atan2` nutzen, um die Quadrantenbeziehungen zu berücksichtigen.
-+ Ablesen aus Bode Plot
-  - Screenshot, auf dem im oberen und unteren Plot jeweils die Frequenz $omega$ durch Anklicken hervorgehoben ist.
-  - Verstärkung [dB] aus Bode-Plot ablesen und mit $20 log(K) =...$ in Frequenz [Hz] umrechnen.
-  - Phasenverschiebung [$(r a d)/s$ ] aus Diagramm ablesen und in Grad umrechnen.
-  
-SCREENSHOTS EINFUEGEN WIE WIR ZEIGEN WO WIR ABLESEN
+#[
+  #set heading(numbering: none, outlined: false)
+  === Analytische Berechnung
+]
 
-Aus dem Verlauf des Betragsgangs des Bode-Plots lässt sich das grundlegende Übertragungsverhalten des Systems ablesen. Ein System mit P-Anteil besitzt zu Beginn des Bode-Plots (kleine Frequenzen) eine praktisch waagerechte Gerade, da die Verstärkung bei tiefen Frequenzen konstant ist. Ein I-Anteil würde sich hingegen durch eine Gerade mit negativer Steigung (−20 dB/Dekade) bemerkbar machen, während ein D-Anteil einen Anstieg mit +20 dB/Dekade verursacht.
-
-Im vorliegenden Bode-Diagramm beginnt der Betragsgang mit einer annähernd horizontalen Geraden, was eindeutig auf ein P-Verhalten des Systems hinweist.
-
-Zusätzlich können aus dem Anfang des Bode-Plots statische Systeminformationen gewonnen werden. Entscheidend ist dabei der Wert des Betragsgangs bei sehr kleinen Frequenzen. Da die Frequenzachse logarithmisch skaliert ist und somit keine exakte Nullfrequenz erreichbar ist, betrachtet man üblicherweise den kleinsten geplotteten Wert. In unserem Bode-Plot liegt dieser bei etwa
+Für das gegebene System lässt sich die Übertragungsfunktion durch Faktorisierung (binomische Formeln) vereinfacht darstellen als $G(s) = (s-1)^2 / (s+1)^3$. Durch die Substitution $s = j omega$ können die allgemeinen Formeln für Betrag und Phase hergeleitet werden:
 
 $
-  omega = 10^(-1) (r a d)/s
+  |G(j omega)| &= frac(|j omega - 1|^2, |j omega + 1|^3) \
+               &= frac((sqrt(1+omega^2))^2, (sqrt(1+omega^2))^3) \
+               &= frac(1, sqrt(1+omega^2))
+$
+\
+$
+  arg(G(j omega)) &= arg((j omega - 1)^2) - arg((j omega + 1)^3) \
+                  &= (2 pi - 2 arctan(omega)) - 3 arctan(omega) \
+                  &= - 5 arctan(omega)
 $
 
-Dort lesen wir einen Betrag von ca.
+Für die betrachtete Testfrequenz $omega = 0.1 (r a d)/s$ ergeben sich durch Einsetzen folgende Werte:
 
+#[
+  #set math.equation(numbering: none)
+  $
+    |G(j 0.1)| &:= (1 + 0.1^2)^(-1/2) approx 0.995 approx 1 \
+    arg(G(j 0.1)) &:= -5 arctan(0.1) approx -0.497 r a d approx -28.5 degree
+  $
+]
+Wir erwarten also eine nahezu unveränderte Amplitude und eine Phasenverzögerung von rund $-29 degree$.
+
+#[
+  #set heading(numbering: none, outlined: false)
+  === Analyse des Bode-Diagramms
+]
+
+Die analytischen Ergebnisse sollen nun durch das Bode-Diagramm verifiziert werden.
+
+#figure(
+  image("../images/Bode_Mit_Punkt_Oben.png", width: 80%),
+  caption: [Amplitudengang des Bode-Plots mit Markierung bei $omega = 10^(-1) (r a d)/s$],
+)
+
+*Betragsgang:*
+Der Betragsgang beginnt bei kleinen Frequenzen mit einer horizontalen Geraden, was charakteristisch für ein System mit Proportionalverhalten (P-Verhalten) ist. An der Stelle $omega approx 10^(-1) (r a d)/s$ lesen wir einen Betrag von:
+
+$ D approx 0 d B $
+
+Die Umrechnung in die statische Verstärkung $K$ erfolgt über:
 $
-  D approx 0 d B
-$
-
-Um daraus die statische Verstärkung K des Systems zu bestimmen, verwendet man die Beziehung zwischen Verstärkung und Dezibel-Darstellung:
-
-$
-  20 log_10(K) = D
-
   K = 10^(D/20) = 10^(0/20) = 1
 $
-
-Somit besitzt unser System eine statische Verstärkung von $K = 1 $.
-
-\
-
-Dies stimmt mit der zuvor bestimmten Übertragungsfunktion überein und bestätigt das P-artige Übertragungsverhalten des Systems.
+Dies bestätigt die analytische Berechnung der Amplitudenverstärkung von $approx 1$.
 
 \
-\
 
-Neben dem Betragsgang lässt sich im unteren Teil des Bode-Diagramms auch die
-Phasenverschiebung des Systems ablesen. Für die gleiche Frequenz wie oben
-(bzw. für den kleinsten geplotteten Wert)
+#figure(
+  image("../images/Bode_Mit_Punkt_Unten.png", width: 80%),
+  caption: [Phasengang des Bode-Plots mit Markierung bei $omega = 10^(-1) (r a d)/s$],
+)
+
+*Phasengang:*
+Im unteren Teil des Diagramms lesen wir für die Frequenz $omega = 10^(-1) (r a d)/s$ einen Phasenwinkel von:
+
+$ phi approx 331 degree $
+
+Unter Berücksichtigung der Periodizität entspricht dies:
+$ phi = 331 degree - 360 degree = -29 degree $
+
+Dieser Wert deckt sich exakt mit der analytisch berechneten Phasenverschiebung. Das negative Vorzeichen bestätigt, dass der Ausgang dem Eingang nacheilt.
+
+#[
+  #set heading(numbering: none, outlined: false)
+  === Analyse im Zeitbereich (Oszilloskop)
+]
+
+Abschließend betrachten wir die Sprungantwort bzw. das Verhalten bei sinusförmiger Anregung im Simulink-Oszilloskop.
+
+#figure(
+  image("../images/Simulink_Oszillator_0.1Hz.png", width: 80%),
+  caption: [Simulink Oszilloskop-Aufnahme bei Anregung mit $omega = 0.1 (r a d)/s$],
+)
+
+*Phasenverschiebung:*
+Im Oszilloskop ist erkennbar, dass die blaue Ausgangskurve der gelben Eingangskurve zeitlich verzögert folgt. Wir lesen eine zeitliche Verzögerung (Time Delay) von ca. $Delta t approx 5 s$ ab.
+Zur Überprüfung berechnen wir die erwartete Zeitverzögerung aus der zuvor ermittelten Phase $phi = -29 degree$ und der Periodendauer $T = (2 pi)/0.1 approx 63 s$:
 
 $
-  omega = 10^(-1) (r a d)/s
+  Delta t = (|phi|)/(360 degree) dot T = (29)/(360) dot 63 s approx 5.07 s
 $
+Der abgelesene Wert von ca. 5 Sekunden stimmt somit mit der Theorie überein.
 
-finden wir im Phasengang einen Wert von ungefähr
+*Amplitudenverstärkung:*
+Das Eingangssignal (gelb) weist eine Amplitude von 1 auf. Das Ausgangssignal (blau) erreicht im eingeschwungenen Zustand (soweit im Bild sichtbar) ebenfalls nahezu die Amplitude 1 (bzw. 0.995). Dies bestätigt die Verstärkung von $K approx 1$.
 
-$
-  phi approx 330 degree
-$
+#[
+  #set heading(numbering: none, outlined: false)
+  === Fazit
+]
 
-Da Phasenwerte periodisch sind, kann dies auch als
+Die Untersuchung des Systems bei der Frequenz $omega = 0.1 (r a d)/s$ zeigt eine vollständige Übereinstimmung aller drei Methoden:
 
-$
-  phi approx -30 degree
-$
+1.  *Analytisch:* Verstärkung $approx 1$, Phase $approx -29 degree$.
+2.  *Bode-Diagramm:* $0 d B$ (Faktor 1) und $331 degree$ ($-29 degree$).
+3.  *Oszilloskop:* Amplitude $approx 1$ und Zeitverzögerung $approx 5 s$ (entspricht $-29 degree$).
 
-interpretiert werden. Eine negative Phasenverschiebung bedeutet, dass das
-Ausgangssignal dem Eingangssignal zeitlich hinterherläuft, während positive
-Werte auf ein voreilendes Verhalten hinweisen.
+Das System verhält sich bei dieser niedrigen Frequenz betragsmäßig wie ein P-Glied (Verstärkung 1), weist jedoch aufgrund der Nullstellen in der rechten Halbebene bereits eine signifikante Phasenverzögerung auf ("Allpass-Charakteristik" bzgl. der Betragsanteile, aber Addition der Phasenanteile).
 
-Die gemessene Phase zeigt, dass unser System bei niedrigen Frequenzen nur
-eine sehr geringe zeitliche Verschiebung besitzt. Dies passt zum bereits
-identifizierten P-Verhalten, da Systeme mit rein proportionalem Anteil
-typischerweise kaum Phasenverzögerung aufweisen.
-
-Für die Dokumentation sollten an dieser Stelle zwei Screenshots eingefügt
-werden: ein Screenshot des Amplitudengangs mit markiertem Punkt sowie ein
-Screenshot des Phasengangs an der gleichen Frequenz.
-+ Ablesen aus Simulink Oszilloskop
-  - Screenshot des Oszilloskops, der die Amplitude zeigt.
-  - Screenshot des Oszilloskops, der die Phasenverschiebung zeigt.
-  - Berechnen der Verstärkung $K$.
-  - Berechnen der Phasenverschiebung $phi.alt$ (Vorzeichen beachten, d. h. Verschiebung nach rechts oder links).
 
 == Statische Kennlinie (Statikinformationen)
 Der jeweilige Verlauf der statischen Kennlinie ist dabei abhängig vom Verhalten des Systems. Für ein System mit $P$-Verhalten ist die statische Kennlinie eine Ursprungsgerade mit der statischen Verstärkung $K$ als Steigung. Bei Systemen mit $D$-Verhalten entspricht die statische Kennlinie der $x$-Achse. Sowohl bei Systemen mit $I$-Verhalten, als auch bei instabilen Systemen lässt sich rein formal keine statische Kennlinie angeben. Bei instabilen Systemen ist dies darin begründet, dass die Eigenvorgänge nicht abklingen, sondern aufklingen. Im Gegensatz zu einem stabilen System schwingt sich ein instabiles System auch nach einiger Zeit nicht ein, die Lösungen laufen umgangsprachlich gesagt davon. Eine mögliche Darstellung der statischen Kennlinie für Systeme mit $I$-Verhalten ist es, die $y$-Achse als statische Kennlinie zu verwenden.
