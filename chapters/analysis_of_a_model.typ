@@ -129,14 +129,24 @@ $
 Hierbei können die Summanden, welche $u$, $dot(u)$, $accent(u, ¨)$,$dots$ beinhalten, vernachlässigt werden, da die linksseitigen Anfangswerte der Signale gleich 0 sind. Die Anfangswerte des Zustandsraumes $x$ müssen zusätzlich mit denen der Ein-Ausgangs-Differentialgleichung $y$ korrespondieren. Aus obiger Berechnung ergibt sich somit folgendes:
 
 $
-  mat(y; dot(y); accent(y, ¨);) & = mat(c^T; c^T A; c^T A^2;) mat(x_1; x_2; x_3;) \
-            mat(x_1; x_2; x_3;) & = mat(c^T; c^T A; c^T A^2;)^(-1) mat(y; dot(y); accent(y, ¨);)
+  mat(y; dot(y); accent(y, ¨);) & = underbrace(mat(c; c A; c A^2;), "Beobachtbarkeitsmatrix" 0_B) mat(x_1; x_2; x_3;) \
+            mat(x_1; x_2; x_3;) & = mat(c; c A; c A^2;)^(-1) mat(y; dot(y); accent(y, ¨);)
 $
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Übertragen auf konkretes Beispiel, Anfangswerte beachten]
+#space
+
+Übertragen auf unser System ergibt dies:
+
+#space
+
+$
+  mat(y; dot(y); accent(y, ¨);) & = mat(0.5, -0.5, 0.5; -2.5, -0.5, -0.5; 6.5, 3.5, 3.5;) mat(x_1; x_2; x_3;) \
+  mat(x_1; x_2; x_3;) & = mat(0.5, -0.5, 0.5; -2.5, -0.5, -0.5; 6.5, 3.5, 3.5;)^(-1) mat(y; dot(y); accent(y, ¨);)
+$
+
+Für unser System wird außerhalb angenommen, dass es sich zu Beginn in Ruhe befindet, d.h alle Speicher leer sind, weswegen gilt *$x(0) = arrow(0)$*. Daraus folgt direkt, dass auch alle Anfangswerte der Differentialgleichung Null sind:
+
+$ y(0) = dot(y)(0) = accent(y, ¨)(0) = 0 $
 
 === Integralgleichung
 Die Integralgleichung ist allgemeiner als die Differentialgleichung, da diese "mild Solutions" ergibt, welche zusätzlich auch Sprünge abbilden können. Sie ergibt sich aus der Differentialgleichung durch Integration mit $integral_0^t$.
@@ -206,7 +216,7 @@ Hierbei gilt für die Anfangswerte:
 
 --> Anfanfgswerte sollten ungleich 0 sein
 $
-  vec(y(0), dot(y)(0), dot.double(y)(0), delim: "[") = vec(1, 0, 0, delim: "[")
+  vec(y(0), dot(y)(0), dot.double(y)(0), delim: "[") = vec(0, 0, 0, delim: "[")
 $
 
 #inline-note(
