@@ -4,14 +4,10 @@
 #set math.equation(numbering: "1.")
 
 = Analyse des Modells
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Übertragungsfunktion anpassen]
 
 Im folgenden Abschnitt wird das System eines $P T_3 overline(T_2)^'$-Glieds mit folgender Übertragungsfunktion analysiert:
 $
-  G(s) = Y(s)/U(s) = (s^2 - 2s + 1)/(s^3 + 3s^2 + 3s + 1)
+  G(s) = Y(s)/U(s) = (s-1)^2/(s+1)^3 = (s^2 - 2s + 1)/(s^3 + 3s^2 + 3s + 1)
 $ <uebertragungsfunktion>
 
 == Eigenschaften des Systems
@@ -19,14 +15,12 @@ $ <uebertragungsfunktion>
 Folgend eine Liste der Eigenschaften des Systems, die sich aus der Übertra-
 gungsfunktion G(s) ergibt: \
 
---> Hier noch bisschen weiter erläutern wo die Polstellen und Nullstellen liegen
-
 - *Nennergrad - Zählergrad = 1*,
   dadurch ist das System *nicht sprungfähig*, antwortet aber *sofort* mit einer *Steigung*. Außerdem ist die *D-Matrix* (welche einem *Sprung am Anfang* ensprechen würde) gleich *0*.
 
-- Besitzt *zwei Nullstellen*
+- Besitzt *zweifache Nullstelle bei +1 *
 
-- Besitzt *dreifache Polstelle*
+- Besitzt *dreifache Polstelle bei -1*
 
 - *Nichtminimalphasig*
 
@@ -360,15 +354,15 @@ Im Folgenden werden diese Größen exemplarisch für eine Kreisfrequenz von $ome
 Für das gegebene System lässt sich die Übertragungsfunktion durch Faktorisierung (binomische Formeln) vereinfacht darstellen als $G(s) = (s-1)^2 / (s+1)^3$. Durch die Substitution $s = j omega$ können die allgemeinen Formeln für Betrag und Phase hergeleitet werden:
 
 $
-  |G(j omega)| &= frac(|j omega - 1|^2, |j omega + 1|^3) \
-               &= frac((sqrt(1+omega^2))^2, (sqrt(1+omega^2))^3) \
-               &= frac(1, sqrt(1+omega^2))
+  |G(j omega)| & = frac(|j omega - 1|^2, |j omega + 1|^3) \
+               & = frac((sqrt(1+omega^2))^2, (sqrt(1+omega^2))^3) \
+               & = frac(1, sqrt(1+omega^2))
 $
 \
 $
-  arg(G(j omega)) &= arg((j omega - 1)^2) - arg((j omega + 1)^3) \
-                  &= (2 pi - 2 arctan(omega)) - 3 arctan(omega) \
-                  &= - 5 arctan(omega)
+  arg(G(j omega)) & = arg((j omega - 1)^2) - arg((j omega + 1)^3) \
+                  & = (2 pi - 2 arctan(omega)) - 3 arctan(omega) \
+                  & = - 5 arctan(omega)
 $
 
 Für die betrachtete Testfrequenz $omega = 0.1 (r a d)/s$ ergeben sich durch Einsetzen folgende Werte:
@@ -376,8 +370,8 @@ Für die betrachtete Testfrequenz $omega = 0.1 (r a d)/s$ ergeben sich durch Ein
 #[
   #set math.equation(numbering: none)
   $
-    |G(j 0.1)| &:= (1 + 0.1^2)^(-1/2) approx 0.995 approx 1 \
-    arg(G(j 0.1)) &:= -5 arctan(0.1) approx -0.497 r a d approx -28.5 degree
+       |G(j 0.1)| & := (1 + 0.1^2)^(-1/2) approx 0.995 approx 1 \
+    arg(G(j 0.1)) & := -5 arctan(0.1) approx -0.497 r a d approx -28.5 degree
   $
 ]
 Wir erwarten also eine nahezu unveränderte Amplitude und eine Phasenverzögerung von rund $-29 degree$.
@@ -453,9 +447,9 @@ Das Eingangssignal (gelb) weist eine Amplitude von 1 auf. Das Ausgangssignal (bl
 
 Die Untersuchung des Systems bei der Frequenz $omega = 0.1 (r a d)/s$ zeigt eine vollständige Übereinstimmung aller drei Methoden:
 
-1.  *Analytisch:* Verstärkung $approx 1$, Phase $approx -29 degree$.
-2.  *Bode-Diagramm:* $0 d B$ (Faktor 1) und $331 degree$ ($-29 degree$).
-3.  *Oszilloskop:* Amplitude $approx 1$ und Zeitverzögerung $approx 5 s$ (entspricht $-29 degree$).
+1. *Analytisch:* Verstärkung $approx 1$, Phase $approx -29 degree$.
+2. *Bode-Diagramm:* $0 d B$ (Faktor 1) und $331 degree$ ($-29 degree$).
+3. *Oszilloskop:* Amplitude $approx 1$ und Zeitverzögerung $approx 5 s$ (entspricht $-29 degree$).
 
 Das System verhält sich bei dieser niedrigen Frequenz betragsmäßig wie ein P-Glied (Verstärkung 1), weist jedoch aufgrund der Nullstellen in der rechten Halbebene bereits eine signifikante Phasenverzögerung auf ("Allpass-Charakteristik" bzgl. der Betragsanteile, aber Addition der Phasenanteile).
 

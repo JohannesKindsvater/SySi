@@ -144,7 +144,7 @@ Der Parameter *$k$* ist dabei die *Ventilkonstante*. Er fasst die Geometrie des 
   block: true,
   numbering: "(1)",
   $
-    dot(x_1) = 1/A_1 (Q_A - k_1 dot sqrt(x_1))\
+    dot(x_1) = 1/A_1 (Q_E - k_1 dot sqrt(x_1))\
     dot(x_2) = 1/A_2(k_1 dot sqrt(x_1) - k_2 dot sqrt(x_2))
   $,
 )
@@ -152,11 +152,72 @@ Der Parameter *$k$* ist dabei die *Ventilkonstante*. Er fasst die Geometrie des 
 #space
 
 Da dieses System aufgrund der Wurzelfunktion nichtlinear ist, ist für die weitere systemtheoretische Betrachtung eine Linearisierung um den Arbeitspunkt erforderlich.
+
+=== Bestimmung der Ruhelagen
+
+Um das System zu linearisieren, muss zunächst ein Arbeitspunkt (Ruhelage) definiert werden. In der Ruhelage ändern sich die Füllstände zeitlich nicht mehr, weshalb die Ableitungen gleich Null gesetzt werden ($dot(x)_1 = dot(x)_2 = 0$).
+
+Ausgehend von einem konstanten Zufluss $u_0$ ergeben sich die stationären Füllstände $x_(1,0)$ und $x_(2,0)$ wie folgt:
+
+#math.equation(
+  block: true,
+  numbering: "(1)",
+  $
+    0 = Q_(E,0) - k_1 dot sqrt(x_(1,0)) arrow.double x_(1,0) = (Q_(E,0) / k_1)^2 \
+    0 = k_1 dot sqrt(x_(1,0)) - k_2 dot sqrt(x_(2,0)) arrow.double x_(2,0) = ( (k_1 sqrt(x_(1,0))) / k_2 )^2 = (Q_(E,0) / k_2)^2
+  $,
+)
+
+=== Linearisierung mittels Jacobi-Matrix
+
+Die Linearisierung des nichtlinearen Systems erfolgt systemtheoretisch durch die Berechnung der Jacobi-Matrizen an der berechneten Ruhelage (Arbeitspunkt). Das System wird in der allgemeinen Form $dot(x) = f(x, u)$ betrachtet:
+
+$
+  f(x, u) = vec(
+    1/A_1 (u - k_1 sqrt(x_1)),
+    1/A_2 (k_1 sqrt(x_1) - k_2 sqrt(x_2))
+  )
+$
+
+Die Systemmatrix $A$ des linearisierten Modells ergibt sich aus den partiellen Ableitungen nach dem Zustandsvektor $x$:
+
+$
+  A = (partial f) / (partial x) bar_(x=x_0) = mat(
+    (partial f_1) / (partial x_1), (partial f_1) / (partial x_2);
+    (partial f_2) / (partial x_1), (partial f_2) / (partial x_2)
+  )
+$
+
+Unter Anwendung der Ableitungsregel $d / (d x) sqrt(x) = 1 / (2 sqrt(x))$ ergibt sich:
+
+$
+  A = mat(
+    - k_1 / (2 A_1 sqrt(x_(1,0))), 0;
+    k_1 / (2 A_2 sqrt(x_(1,0))), - k_2 / (2 A_2 sqrt(x_(2,0)))
+  )
+$
+
+Die Eingangsmatrix $B$ ergibt sich aus der partiellen Ableitung nach dem Eingang $u$:
+
+$
+  B = (partial f) / (partial u) bar_(x=x_0) = vec(
+    (partial f_1) / (partial u),
+    (partial f_2) / (partial u)
+  ) = vec(
+    1/A_1,
+    0
+  )
+$
+
+Das linearisierte System im Zustandsraum lautet somit für die Abweichungen vom Arbeitspunkt ($Delta x$, $Delta u$):
+
+$ dot(Delta x) = A dot Delta x + B dot Delta u $
+
+#space
+
 \
 \
 Von nun an wird mit dem $P T_3 overline(T_2)^'$ System fortgefahren.
 
 \
 \
-
--> Linearisieren mit Ruhelagen (um Arbeitspunkt)
