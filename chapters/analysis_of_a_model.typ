@@ -22,7 +22,10 @@ gungsfunktion G(s) ergibt: \
 
 - Besitzt *dreifache Polstelle bei -1*
 
-- *Nichtminimalphasig*
+- *Nichtminimalphasig*, da die Eigenschaften der Minimalphasigkeit verletzt werden:
+  - Keine Pole in der rechten Halbebene
+  - Keine Nullstellen der rechten Halbebene {Verletzung}
+  - Keine Totzeit
 
 == Eingabe des Systems in Matlab
 
@@ -144,7 +147,7 @@ $
   mat(x_1; x_2; x_3;) & = mat(0.5, -0.5, 0.5; -2.5, -0.5, -0.5; 6.5, 3.5, 3.5;)^(-1) mat(y; dot(y); accent(y, ¨);)
 $
 
-Für unser System wird außerhalb angenommen, dass es sich zu Beginn in Ruhe befindet, d.h alle Speicher leer sind, weswegen gilt *$x(0) = arrow(0)$*. Daraus folgt direkt, dass auch alle Anfangswerte der Differentialgleichung Null sind:
+Für unser System wird außerdem angenommen, dass es sich zu Beginn in Ruhe befindet, d.h alle Speicher leer sind, weswegen gilt *$x(0) = arrow(0)$*. Daraus folgt direkt, dass auch alle Anfangswerte der Differentialgleichung Null sind:
 
 $ y(0) = dot(y)(0) = accent(y, ¨)(0) = 0 $
 
