@@ -168,35 +168,10 @@ $
   fill: orange,
 )[Matritzen aus `ss(sys)` einsetzen und ggf. zusammenfassen]
 
-=== Differentialgleichung <dgl>
-Die Differentialgleichung ergibt sich meist aus dem physikalischen Modell und ist in unserem Fall mit den *Anfangswerten* wie folgt definiert:
-
 \
-
-
-$
-  G(s) = Y(s)/U(s) = (s^2 - 2s + 1)/(s^3 + 3s^2 + 3s + 1)
-$
-
-$
-  (s^3 + 3s^2 + 3s + 1) dot Y(s) = (s^2 - 2s + 1) dot U(s)
-$
-
-$
-  (s^3 + 3s^2 + 3s + 1) dot Y(s) = (s^2 - 2s + 1) dot U(s)
-$
-
-hier steht im endeffekt das selbe wie direkt im chapter darunter, wir können das hier also entweder streichen oder das darunterrichtig?
-
-\
-
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[TODO / / schauen ob wir das behalten weil wir kein physikalisches system haben]
 
 == Ein- und Ausgangs-Differentialgleichung
-Die Ein-Ausgangs-Differentialgleichung ergibt sich aus der Differentialgleichung (@dgl) durch Eliminieren des Zustandes und ist für unser System mit den Anfangswerten wie folgt definiert:
+Die Ein- und Ausgangs-Differentialgleichung ergibt sich aus dem physikalischen Modell (bzw. der Übertragungsfunktion) und ist mit den Anfangswerten wie folgt definiert:
 
 $
   G(s) = Y(s)/U(s) = (s^2 - 2s + 1)/(s^3 + 3s^2 + 3s + 1)
@@ -213,8 +188,7 @@ $
 #space
 
 Hierbei gilt für die Anfangswerte:
-
---> Anfanfgswerte sollten ungleich 0 sein
+-> Anfangswerte sollten ungleich null sein
 $
   vec(y(0), dot(y)(0), dot.double(y)(0), delim: "[") = vec(0, 0, 0, delim: "[")
 $
@@ -312,20 +286,12 @@ Die Schaltung kann in Simulink einfach realisiert werden, indem der "Transfer Fc
 
 Alternativ zur Eingabe der Übergangsfunktion lässt sich das System auch durch Integratoren aufbauen. Hierfür wird die Eingangs- und Ausgangsdifferentialgleichung nach der höchsten Ableitung umgestellt und integriert. Die Differentialgleichung ergibt sich durch Auflösen nach der höchsten Ableitung und entsprechender Rückkopplung. Der Vorteil ist, dass hierbei Anfangswerte gesetzt werden können. Unsere Simulink Schaltung ist wie folgt aufgebaut:
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Eigene Schaltung einfügen]
 
 #figure(
   image("../images/Simulink_integrator1.png", width: 80%),
   caption: [Simulink Schaltung mit Integratoren],
 )
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Eigene Ausgabe einsetzen]
 
 #[
   #set heading(numbering: none, outlined: false)
@@ -350,11 +316,6 @@ $
 ]
 
 Im Folgenden werden diese Größen exemplarisch für eine Kreisfrequenz von $omega = 10^(-1) (r a d)/s$ ermittelt. Dies erfolgt durch drei Methoden: analytische Berechnung, Ablesen aus dem Bode-Diagramm und Messung im Zeitbereich (Oszilloskop).
-
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[In dem folgenden Abschnitt muss die Phasenverschiebung und Amplitudenverstärkung zuerst analytisch berechnet und anschließend aus dem Bode-Plot und Oszilloskop abgelesen werden. Unten befindet sich eine kurze Zusammenfassung der Vorgehensweise.]
 
 #[
   #set heading(numbering: none, outlined: false)
