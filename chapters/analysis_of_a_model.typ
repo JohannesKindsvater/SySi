@@ -43,9 +43,6 @@ Zum Aufbau der Analyse des Modells ist anzumerken, dass die Darstellungsformen a
 == Explizite Darstellung des Übertragungsoperators
 Die explizite Darstellung ist in unserem Beispiel eine Folgerung aus der Zustandsraumdarstellung. Für die Berechnung von $A$, $B$, $C$, $D$ sei auf @zustandsraumdarstellung verwiesen. Zudem ist zu beachten, dass in Matlab die `expm` für die Exponentialfunktion verwendet werden muss, da die Matrixmultiplikation und nicht die Hadamardmultiplikation benötigt wird. Somit ist die Zustandsraumdarstellung mit den dazugehörigen Anfangswerten bekannt, womit die explizite Darstellung nach folgender Formel berechnet werden kann:
 
-\
-
--> Mit Frequenzgang kann man stationäre ... aus dem Bode Diagramm ablesen -> Nur für konstante Signale, sin, cos (nicht für beliebige Signale)
 
 \
 
@@ -113,14 +110,13 @@ $
 
 Ohne Matlab kann die Zustandsraumdarstellung aus der Übertragungsfunktion in einfachen Fällen mithilfe einer Substitution, d.h. Einführen neuer Zustände, gelöst werden. Für Systeme, in denen auch $dot(u)$, $accent(u, ¨)$,$dots$ vorkommt, ist die Vorgehensweise teilweise komplexer. Im Rahmen dieser Arbeit wird diese Vorgehensweise deshalb nicht weiter erläutert, sondern lediglich auf den entsprechenden #link("https://de.wikipedia.org/wiki/Zustandsraumdarstellung#Regelungsnormalform")[Wikipedia Eintrag] verwiesen, in welchem die Vorgehensweise ausführlich erklärt ist. Bei sprungfähigen Systemen ist zunächst zusätzlich eine Polynomdivision erforderlich. In mehrgrößen Fällen wird die Ermittlung der Zustandsraumdarstellung noch komplexer und aufwändiger.
 
+\
+
 #[
   #set heading(numbering: none, outlined: false)
   === Anfangswerte
 ]
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Herrn Gröll fragen, ob dieser Abschnitt drinbleiben soll]
+\
 
 Die Anfangswerte werden für die Simulation benötigt, da der Start der Funktion definiert sein muss. Verwendet werden hierbei immer die linksseitigen Grenzwerte, damit eventuelle Sprünge nicht miteinbezogen werden. Das bedeutet:
 
@@ -146,30 +142,47 @@ $
   mat(y; dot(y); accent(y, ¨);) & = mat(0.5, -0.5, 0.5; -2.5, -0.5, -0.5; 6.5, 3.5, 3.5;) mat(x_1; x_2; x_3;) \
   mat(x_1; x_2; x_3;) & = mat(0.5, -0.5, 0.5; -2.5, -0.5, -0.5; 6.5, 3.5, 3.5;)^(-1) mat(y; dot(y); accent(y, ¨);)
 $
+\
 
-Für unser System wird außerdem angenommen, dass es sich zu Beginn in Ruhe befindet, d.h alle Speicher leer sind, weswegen gilt *$x(0) = arrow(0)$*. Daraus folgt direkt, dass auch alle Anfangswerte der Differentialgleichung Null sind:
+Um die *freie Bewegung* des Systems (Reaktion ohne Eingangssignal) zu validieren, werden Anfangswerte ungleich Null gewählt. Dies simuliert ein System, das zum Zeitpunkt $t=0$ Energie gespeichert hat (z.B. Auslenkung).
 
-$ y(0) = dot(y)(0) = accent(y, ¨)(0) = 0 $
+Ein sinnvolles Szenario ist die *"Auslenkung aus der Ruhelage"*:
+\
+\
+$
+  vec(y(0), dot(y)(0), dot.double(y)(0), delim: "[") = vec(1, 0, 0, delim: "[")
+$
+\
+
+Daraus berechnet sich der Startvektor für die Simulation $x(0)$ über die inverse Beobachtbarkeitsmatrix (Siehe oben):
+
+$
+  x(0) = O_B^(-1) dot vec(1, 0, 0)
+$
+
+Dieser Vektor *$x(0)$* wird in Simulink/Matlab als "Initial Condition" im Integrator-Block eingetragen.
 
 === Integralgleichung
-Die Integralgleichung ist allgemeiner als die Differentialgleichung, da diese "mild Solutions" ergibt, welche zusätzlich auch Sprünge abbilden können. Sie ergibt sich aus der Differentialgleichung durch Integration mit $integral_0^t$.
+
+Die Integralgleichung ist allgemeiner als die Differentialgleichung, da sie "mild Solutions" liefert. Das bedeutet, sie kann auch physikalische Verläufe mit Sprüngen (z.B. sprungförmige Eingänge) mathematisch korrekt abbilden, wo die Ableitung $dot(x)$ nicht definiert wäre. \
+\
+
+Sie ergibt sich aus der Differentialgleichung durch Integration mit $integral_0^t$. Die vollständige Lösung des Systems besteht aus der Zustandsentwicklung und der zugehörigen Ausgangsgleichung:
+\
+\
 
 $
-  x(t) = x(0) + integral^t_0 A x(tau) + B u(tau) d tau
+  x(t) = x(0) + integral^t_0 A x(tau) + B u(tau) d tau \
+  y(t) = C x(t) + D u(t)
 $
+\
 
-ich habe im keks beispiel gesehen dass dort auch noch y(t) mit aufgeführt war, aber hier nicht. soll das so sein?
-
-Für unser System gilt:
+*Für unser System gilt:*
 
 $
   x(t) = x(0) + integral^t_0 mat(-3, -1.5, -1; 2, 0, 0; 0, 0.5, 0; delim: "[") x(tau) + vec(2, 0, 0, delim: "[") u(tau) d tau
+  \ y = mat(0.5, -0.5, 0.5, delim: "[") " "x(t)
 $
-
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Matritzen aus `ss(sys)` einsetzen und ggf. zusammenfassen]
 
 \
 
@@ -189,17 +202,16 @@ $
 $
 
 #space
+\
+\
 
-Hierbei gilt für die Anfangswerte:
--> Anfangswerte sollten ungleich null sein
+Hierbei gilt wieder für die Anfangswerte:
+
 $
-  vec(y(0), dot(y)(0), dot.double(y)(0), delim: "[") = vec(0, 0, 0, delim: "[")
+  vec(y(0), dot(y)(0), dot.double(y)(0), delim: "[") = vec(1, 0, 0, delim: "[")
 $
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[TODO]
+
 
 == Übertragungsfunktion
 
@@ -229,8 +241,25 @@ $
   caption: [Impulsantwort des Systems],
 )
 
+\
+\
+
 === Übergangsfunktion / Sprungantwort $1(t)$
-Die Übergangsfunktion ist die Antwort auf den Einheitssprung $1(t)$ und somit ohne Einheiten. Die Sprungantwort dagegen ist die Antwort auf einen technischen Einheitssprung und somit mit Einheiten.
+Die Übergangsfunktion ist die Antwort auf den Einheitssprung und somit ohne Einheiten. Ein Beispiel ist die Heaviside-Funktion, die wie folgt definiert ist:
+\
+\
+
+$
+  1(t) := cases(
+    0 "für" t < 0,
+    1/2 "für" t = 0,
+    1 "if" t > 0
+  )
+$
+
+\
+
+Die Sprungantwort dagegen ist die Antwort auf einen technischen Einheitssprung und somit mit Einheiten.
 
 Die Übergangsfunktion kann in Matlab mit `step(sys)` geplottet werden. Die analytische Berechnung erfolgt mit `h(t) = ilaplace(G(s)/s)`. Die Ausgabe `1 - 2*t^2*exp(-t) - exp(-t)` von Matlab bedeutet:
 
@@ -313,8 +342,8 @@ $
     numbering: none,
   )
   $
-    "Amplitudenverstärkung" & := |G(j omega_0)| \
-       "Phasenverschiebung" & := arg(G(j omega_0))
+    "Amplitudenverstärkung" := |G(j omega_0)| \
+    "Phasenverschiebung" := arg(G(j omega_0))
   $
 ]
 
@@ -433,10 +462,6 @@ Der jeweilige Verlauf der statischen Kennlinie ist dabei abhängig vom Verhalten
 
 Um eine statische Kennlinie aufzunehmen, stellt man einen konstanten Wert für die Eingangsvariable $u$ ein. Wenn alle Eigenvorgänge abgeklungen sind, liest man den zugehörigen Ausgangswert, $y$, ab. Dieses Vorgehen wiederholt man für mehrere Punkte, sodass sich eine Abfolge von Messpunkten ergibt, welche anschließend durch eine Linie verbunden werden können. In Matlab kann zur Hilfe der Befehl `dcgain(sys)` verwendet werden, der die statische Verstärkung berechnet.
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Herrn Gröll fragen, ob die nachfolgenden Gleichungen drin bleiben sollen]
 
 Im Fall mehrerer Ausgänge lässt sich die Verstärkungsmatrix $K$ berechnen, indem die Zustandsraumdarstellung verwendet wird und $dot(x)= 0$ gesetzt wird. Anschließend kann die nach $x$ aufgelöste Gleichung in $y= C x+ D u$ eingesetzt werden.
 

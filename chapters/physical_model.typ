@@ -1,21 +1,12 @@
 #import "../config.typ": *
 
 = Physikalisches Modell und Systemtheoretische Beschreibung
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Physikalische Betrachtung des Modells im Umfang von circa ein bis zwei Seiten, d.h. Skizze und kurze Beschreibung der physikalischen Gesetze. Meist lässt sich ein guter Stromkreis finden.]
-
+\
 #[
   #set heading(numbering: none, outlined: false)
   === Übertragung in die Systemtheorie
 ]
 
-#inline-note(
-  rect: caution-rect,
-  fill: orange,
-)[Übertragen der physikalischen Betrachtung in die Systemtheorie. Am Ende sollte die Übertragungsfunktion $G(s)$ bekannt sein.]
-\
 #figure(
   image("../images/2-Tank-System-beschriftet.png", width: 100%),
   caption: [Zwei-Tank-System],
@@ -74,6 +65,9 @@ Um die Übertragsfunktion aufstellen zu können, wird vorerst das Volumen eines 
   $,
 )
 #space
+\
+\
+\
 
 Aus der zeitlichen Ableitung des Volumens folgt:
 #space
