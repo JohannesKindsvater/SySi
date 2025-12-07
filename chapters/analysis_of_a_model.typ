@@ -324,6 +324,10 @@ Alternativ zur Eingabe der Übergangsfunktion lässt sich das System auch durch 
   caption: [Simulink Schaltung mit Integratoren],
 )
 
+#figure(
+  image("../images/SimulinkMit3rad.png", width: 80%),
+  caption: [Simulink Oszilloskop-Aufnahme bei Anregung mit $omega = 3 (r a d)/s$],
+)
 
 #[
   #set heading(numbering: none, outlined: false)
@@ -466,7 +470,7 @@ Um eine statische Kennlinie aufzunehmen, stellt man einen konstanten Wert für d
 Im Fall mehrerer Ausgänge lässt sich die Verstärkungsmatrix $K$ berechnen, indem die Zustandsraumdarstellung verwendet wird und $dot(x)= 0$ gesetzt wird. Anschließend kann die nach $x$ aufgelöste Gleichung in $y= C x+ D u$ eingesetzt werden.
 
 $
-  x & = A x+ B u =^! 0 \
+  dot(x) & = A x+ B u =^! 0 \
   y & = C x+ D u \
     \
   y & = C(-A^(-1)B u) + D u= (-C A^(-1)B+ D) dot u \
@@ -477,9 +481,11 @@ $
 == Pol-Nullstellen-Plot (Dynamikinformationen)
 Da der Pol-Nullstellen-Plot keine Information über die statische Verstärkung $K$ enthält, ist er weniger aussagekräftig. Er kann mit dem `pzplot(sys)` Befehl in Matlab erstellt werden.
 
-Die Pole der Übertragungsfunktion $G(s)$ korrespondieren mit den Eigenwerten der Systemmatrix $A$ unter der Voraussetzung, dass das System vollständig steuerbar und beobachtbar ist. Das heißt, es darf keine Pol-Nullstellen-Kürzung auftreten. An dem Plot ist erkennbar, dass das System einen Pol bei 0 hat und somit instabil ist.
+Die Pole der Übertragungsfunktion $G(s)$ korrespondieren mit den Eigenwerten der Systemmatrix $A$ unter der Voraussetzung, dass das System vollständig steuerbar und beobachtbar ist. Das heißt, es darf keine Pol-Nullstellen-Kürzung auftreten.
+
+An dem Plot ist erkennbar, dass sich alle Pole in der linken s-Halbebene (bei $s approx -1$) befinden. Da somit alle Pole einen negativen Realteil besitzen, ist das System *asymptotisch stabil*. Des Weiteren ist eine Nullstelle in der rechten Halbebene bei $z = 1$ zu identifizieren. Systeme mit Nullstellen in der rechten Halbebene werden als *nichtminimalphasig* bezeichnet.
 
 #figure(
-  image("../images/Pol_Nullstellen_Diagramm.svg", width: 70%),
+  image("../images/pzplot.png", width: 80%),
   caption: [Pol-Nullstellen-Plot],
 )
