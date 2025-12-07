@@ -211,7 +211,7 @@ $ dot(Delta x) = A dot Delta x + B dot Delta u $
 
 \
 \
-Von nun an wird mit dem $P T_3 overline(T_2)^'$ System fortgefahren.
+Das Tank-Modell diente exemplarisch zur Herleitung der Linearisierung. Für die folgende systemtheoretische Analyse wird nun ein abstraktes System höherer Ordnung ($P T_3 overline(T_2)^'$) betrachtet, um komplexere Effekte wie das nicht-minimalphasige Verhalten zu demonstrieren.
 
 \
 \

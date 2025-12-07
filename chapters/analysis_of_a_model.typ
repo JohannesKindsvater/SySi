@@ -139,8 +139,8 @@ $
 #space
 
 $
-  mat(y; dot(y); accent(y, ¨);) & = mat(0.5, -0.5, 0.5; -2.5, -0.5, -0.5; 6.5, 3.5, 3.5;) mat(x_1; x_2; x_3;) \
-  mat(x_1; x_2; x_3;) & = mat(0.5, -0.5, 0.5; -2.5, -0.5, -0.5; 6.5, 3.5, 3.5;)^(-1) mat(y; dot(y); accent(y, ¨);)
+  mat(y; dot(y); accent(y, ¨);) & = mat(0.5, -0.5, 0.5; -2.5, -0.5, -0.5; 6.5, 3.5, 2.5;) mat(x_1; x_2; x_3;) \
+  mat(x_1; x_2; x_3;) & = mat(0.5, -0.5, 0.5; -2.5, -0.5, -0.5; 6.5, 3.5, 2.5;)^(-1) mat(y; dot(y); accent(y, ¨);)
 $
 \
 
@@ -175,6 +175,8 @@ $
   x(t) = x(0) + integral^t_0 A x(tau) + B u(tau) d tau \
   y(t) = C x(t) + D u(t)
 $
+\
+\
 \
 
 *Für unser System gilt:*
@@ -471,11 +473,11 @@ Im Fall mehrerer Ausgänge lässt sich die Verstärkungsmatrix $K$ berechnen, in
 
 $
   dot(x) & = A x+ B u =^! 0 \
-  y & = C x+ D u \
-    \
-  y & = C(-A^(-1)B u) + D u= (-C A^(-1)B+ D) dot u \
-  y & := K u \
-  K & =-C A^(-1)B+ D
+       y & = C x+ D u \
+         \
+       y & = C(-A^(-1)B u) + D u= (-C A^(-1)B+ D) dot u \
+       y & := K u \
+       K & =-C A^(-1)B+ D
 $
 
 == Pol-Nullstellen-Plot (Dynamikinformationen)
