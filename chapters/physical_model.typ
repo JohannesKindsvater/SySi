@@ -38,17 +38,17 @@ Im nächsten Schritt müssen die Eingangs- ($u_1$, $u_2$, $u_3$, ...), Ausgangs-
     table.cell([$m$]),
     table.cell([$x_2$]),
 
-    table.cell([$Q_12$]),
-    table.cell([$dot(V)$]),
-    table.cell([$x_3$]),
-
-    table.cell([$Q_AA$]),
-    table.cell([$dot(V)$]),
-    table.cell([$z$]),
-
     table.cell([$h_2$]),
     table.cell([$m$]),
     table.cell([$y$]),
+
+    table.cell([$Q_12$]),
+    table.cell([$dot(V)$]),
+    table.cell([$$]),
+
+    table.cell([$Q_AA$]),
+    table.cell([$dot(V)$]),
+    table.cell([$$]),
   )]
 
 #space
